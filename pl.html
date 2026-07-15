@@ -9,7 +9,7 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%239966cc'/%3E%3Cpath d='M50 20 L70 40 L70 60 L50 80 L30 60 L30 40 L50 20Z' fill='%23d4b8ff' stroke='%23fff' stroke-width='4'/%3E%3C/svg%3E" sizes="256x256" type="image/svg+xml" />
 
     <style>
-        /* ===== RESET & BASE ===== */
+        /* ===== RESET & PODSTAWA ===== */
         *,
         *::before,
         *::after {
@@ -30,7 +30,7 @@
             --border-color: #3d322c;
             --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
             --font-mc: 'Courier New', monospace;
-            --bg-image: url('https://i.imgur.com/your-image.jpg');
+            --bg-image: url('https://i.imgur.com/wCzYG3K.png');
         }
         html { scroll-behavior: smooth; }
         body {
@@ -51,7 +51,7 @@
         img { display: block; max-width: 100%; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* ===== PIXELATED ELEMENTS ===== */
+        /* ===== PIKSLOWE ELEMENTY ===== */
         .mc-slice {
             border: 6px solid transparent;
             border-image-slice: 21 fill;
@@ -86,7 +86,7 @@
             color: var(--gold);
         }
 
-        /* ===== HEADER ===== */
+        /* ===== NAGŁÓWEK ===== */
         header {
             position: sticky;
             top: 0;
@@ -334,7 +334,7 @@
             50% { transform: translateY(6px); }
         }
 
-        /* ===== FEATURES ===== */
+        /* ===== FUNKCJE ===== */
         .features {
             padding: 80px 0 100px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -406,7 +406,7 @@
             border-radius: 30px;
         }
 
-        /* ===== MOD SHOWCASE ===== */
+        /* ===== PREZENTACJA MODÓW ===== */
         .mod-showcase {
             padding: 80px 0 100px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -459,7 +459,7 @@
             filter: drop-shadow(0 0 24px var(--accent-glow));
         }
 
-        /* ===== DOWNLOAD CTA ===== */
+        /* ===== WEZWANIE DO POBRANIA ===== */
         .cta-download {
             padding: 80px 0 100px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -484,7 +484,7 @@
         }
         .cta-download .btn-hero { display: inline-block; }
 
-        /* ===== FOOTER ===== */
+        /* ===== STOPKA ===== */
         footer {
             border-top: 1px solid rgba(255, 255, 255, 0.04);
             background: rgba(26, 20, 16, 0.92);
@@ -548,7 +548,7 @@
         }
         footer .legal a:hover { color: var(--text-primary); }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== RESPONSYWNOŚĆ ===== */
         @media (max-width: 820px) {
             nav .nav-link { display: none; }
             .hamburger { display: flex; }
@@ -578,12 +578,12 @@
     <header id="header">
         <div class="container">
             <div class="logo-wrap">
-                <div class="logo-icon"><img src="https://i.imgur.com/your-logo.png" alt="Pyra Client logo" /></div>
+                <div class="logo-icon"><img src="https://i.imgur.com/K2YOrQ7.png" alt="Logo Pyra Client" /></div>
                 <span class="logo-text">Pyra<span>Client</span></span>
             </div>
             <nav>
                 <a href="#features" class="nav-link active">Funkcje</a>
-                <a href="#download" class="btn-download-header">Pobierz</a>
+                <a href="#download" class="btn-download-header">Pobierz Pyra</a>
                 <button class="hamburger" aria-label="Menu" onclick="this.classList.toggle('open')">
                     <span></span><span></span><span></span>
                 </button>
@@ -593,14 +593,14 @@
 
     <section class="hero" id="home">
         <div class="container">
-            <div class="hero-badge">⚡ Nowej generacji launcher Minecraft</div>
+            <div class="hero-badge">⚡ Launcher Minecraft nowej generacji</div>
             <h1>
                 Graj <span class="highlight">Szybciej</span><br />
                 <span class="gold">Lepiej</span> · <span class="highlight">Pyra</span>
             </h1>
             <p>
                 Darmowy, wysokowydajny launcher dla Java Edition.<br />
-                Modpacki jednym kliknięciem, 100+ modułów i wbudowane ulepszenia PvP.
+                Wersje 1.8–26.3, wbudowane ulepszenia PvP.
             </p>
             <div class="hero-actions">
                 <a href="#download" class="btn-hero pulse-glow">⬇ Pobierz na Windows</a>
@@ -652,12 +652,12 @@
         <div class="container">
             <div class="badge-row">
                 <span>🧵 Fabric</span>
-                <span>⚡ Forge</span>
-                <span>📦 Modrinth</span>
-                <span>🔄 CurseForge</span>
+                <span>⚡ Szybki</span>
+                <span>📦 Profile</span>
+                <span>🔄 Łatwe wgrywanie</span>
             </div>
             <h2>Pełna <span>wolność</span> modowania</h2>
-            <p>Pyra Client daje Ci pełną kontrolę nad modami. Instaluj dowolne mody Fabric lub Forge jednym kliknięciem. Żadnych problemów z kompatybilnością – my zajmujemy się zależnościami.</p>
+            <p>Pyra Client daje Ci pełną kontrolę nad modami. Instaluj dowolne mody Fabric. Żadnych problemów z kompatybilnością – my zajmujemy się zależnościami.</p>
             <div class="fabric-icon">🧵</div>
             <p style="font-size:15px;color:var(--text-muted);">
                 <span style="color:var(--gold);font-weight:600;">✦</span> Ponad 4000 modów
@@ -681,7 +681,7 @@
             <div class="copy"><span>Pyra</span> Client © 2026 · Zbudowane z 💜</div>
             <div class="socials">
                 <a href="#" target="_blank">Discord</a>
-                <a href="index.html" class="flag-btn" aria-label="English version">🇺🇸</a>
+                <a href="en.html" class="flag-btn" aria-label="Angielska wersja">🇺🇸</a>
             </div>
             <div class="legal">
                 <a href="#">Regulamin</a>
@@ -692,9 +692,11 @@
     </footer>
 
     <script>
+        // Cień przy przewijaniu
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
         });
+        // Przełącznik nawigacji mobilnej
         document.querySelector('.hamburger')?.addEventListener('click', function() {
             const nav = document.querySelector('nav');
             const links = nav.querySelectorAll('.nav-link');
