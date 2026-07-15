@@ -1,2 +1,2 @@
 # PyraClient
-Pyra Client, new and better Minecraft.
+All informations, on our site :)
