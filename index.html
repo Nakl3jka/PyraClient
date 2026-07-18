@@ -24,8 +24,6 @@
             --border-color: #3d322c;
             --border-light: #4a3d35;
             --success: #5cb878;
-            --warning: #e0a840;
-            --danger: #d95555;
             --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
             --font-mc: 'Courier New', monospace;
             --bg-image: url('https://i.imgur.com/wCzYG3K.png');
@@ -35,7 +33,6 @@
             --radius-xl: 20px;
             --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.35);
             --shadow-glow: 0 0 30px var(--accent-glow);
-            --shadow-glow-strong: 0 0 50px rgba(153, 102, 204, 0.5);
             --transition-fast: 0.18s ease;
             --transition-smooth: 0.28s ease;
         }
@@ -78,13 +75,7 @@
             margin: 0 auto;
             padding: 0 24px;
         }
-        .container-narrow {
-            max-width: 820px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
 
-        /* ===== HEADER ===== */
         header {
             position: sticky;
             top: 0;
@@ -237,7 +228,6 @@
             border-radius: var(--radius-md);
         }
 
-        /* ===== HERO ===== */
         .hero {
             padding: 70px 0 80px;
             position: relative;
@@ -376,7 +366,6 @@
             }
         }
 
-        /* ===== SECTION HEADINGS ===== */
         .section-label {
             font-family: var(--font-mc);
             font-size: 11px;
@@ -406,7 +395,6 @@
             line-height: 1.5;
         }
 
-        /* ===== CHANGELOG SECTION (simplified, single version) ===== */
         .changelog-section {
             padding: 70px 0 80px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -479,18 +467,7 @@
             color: #5cb878;
             border: 1px solid #5cb87855;
         }
-        .cl-tag.fix {
-            background: #e0a84022;
-            color: #e0a840;
-            border: 1px solid #e0a84055;
-        }
-        .cl-tag.imp {
-            background: #6699cc22;
-            color: #6699cc;
-            border: 1px solid #6699cc55;
-        }
 
-        /* ===== FEATURES ===== */
         .features {
             padding: 70px 0 80px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -548,7 +525,6 @@
             border-radius: 30px;
         }
 
-        /* ===== REQUIREMENTS ===== */
         .requirements {
             padding: 60px 0 70px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -585,7 +561,6 @@
             margin-bottom: 4px;
         }
 
-        /* ===== INSTALL STEPS ===== */
         .install-steps {
             padding: 60px 0 70px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -599,7 +574,6 @@
             gap: 18px;
             max-width: 620px;
             margin: 0 auto;
-            counter-reset: step;
         }
         .step-item {
             display: flex;
@@ -642,7 +616,6 @@
             line-height: 1.5;
         }
 
-        /* ===== CTA DOWNLOAD ===== */
         .cta-download {
             padding: 70px 0 80px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -662,7 +635,6 @@
             letter-spacing: 0.04em;
         }
 
-        /* ===== DISCORD CARD ===== */
         .discord-embed {
             padding: 50px 0 60px;
             border-top: 1px solid rgba(255, 255, 255, 0.04);
@@ -711,7 +683,6 @@
             margin-left: 4px;
         }
 
-        /* ===== FOOTER ===== */
         footer {
             border-top: 1px solid rgba(255, 255, 255, 0.04);
             background: rgba(26, 20, 16, 0.92);
@@ -801,7 +772,6 @@
             color: var(--text-primary);
         }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 820px) {
             nav .nav-link {
                 display: none;
@@ -855,7 +825,6 @@
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
     <header id="header">
         <div class="container">
             <div class="logo-wrap">
@@ -882,7 +851,6 @@
         </div>
     </header>
 
-    <!-- ===== HERO ===== -->
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-badge">⚡ Free Minecraft Launcher</div>
@@ -891,7 +859,7 @@
             </h1>
             <p>
                 High‑performance launcher for Java Edition.<br />
-                Versions 1.8 – 1.21, built‑in PvP enhancements, and full mod support.
+                Versions 1.8 – 26.2, built‑in PvP enhancements, and full mod support.
             </p>
             <div class="hero-actions">
                 <a href="https://comingsoon.com" class="btn-hero">⬇ Download for Windows</a>
@@ -899,14 +867,13 @@
             </div>
             <div class="hero-meta">
                 <span><span class="dot"></span> Version 1.0 · Initial Release</span>
-                <span>📦 400 MB</span>
-                <span>🖥️ Windows 10+</span>
+                <span>📦 Version Categories</span>
+                <span>🖥️ Windows 11</span>
                 <span>☕ Java 17+</span>
             </div>
         </div>
     </section>
 
-    <!-- ===== FEATURES ===== -->
     <section class="features" id="features">
         <div class="container">
             <div class="section-label">⚙️ Built for performance</div>
@@ -941,7 +908,6 @@
         </div>
     </section>
 
-    <!-- ===== CHANGELOG (single v1.0) ===== -->
     <section class="changelog-section" id="changelog">
         <div class="container">
             <div class="section-label">📋 Release History</div>
@@ -951,20 +917,13 @@
                 <h3>Pyra Client v1.0</h3>
                 <span class="cl-date">Released · July 18, 2026</span>
                 <ul>
-                    <li><span class="cl-tag new">New</span> Initial public launch of Pyra Client</li>
-                    <li><span class="cl-tag new">New</span> Native Kotlin Compose UI – fast and lightweight</li>
-                    <li><span class="cl-tag new">New</span> Full Fabric &amp; Forge mod loader support</li>
-                    <li><span class="cl-tag new">New</span> One‑click modpack install from Modrinth &amp; CurseForge</li>
-                    <li><span class="cl-tag new">New</span> Built‑in PvP enhancements (CPS counter, reach display, armor HUD)</li>
-                    <li><span class="cl-tag new">New</span> Microsoft OAuth login – secure and simple</li>
-                    <li><span class="cl-tag imp">Improved</span> Optimized memory usage and startup time</li>
-                    <li><span class="cl-tag fix">Fix</span> No known critical bugs – stable first release</li>
+                    <li><span class="cl-tag new">New</span> Launcher released</li>
+                    <li><span class="cl-tag new">New</span> Fabric support</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- ===== SYSTEM REQUIREMENTS ===== -->
     <section class="requirements" id="requirements">
         <div class="container">
             <div class="section-label">🖥️ Compatibility</div>
@@ -981,7 +940,6 @@
         </div>
     </section>
 
-    <!-- ===== INSTALL STEPS ===== -->
     <section class="install-steps" id="install">
         <div class="container">
             <div class="section-label">📥 Getting Started</div>
@@ -1020,7 +978,6 @@
         </div>
     </section>
 
-    <!-- ===== DISCORD ===== -->
     <section class="discord-embed" id="discord">
         <div class="container">
             <div class="section-label">💬 Community</div>
@@ -1037,7 +994,6 @@
         </div>
     </section>
 
-    <!-- ===== CTA DOWNLOAD ===== -->
     <section class="cta-download" id="download">
         <div class="container">
             <div class="section-label">⬇ Ready to launch?</div>
@@ -1050,7 +1006,6 @@
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container">
             <div class="copy"><span>Pyra</span> Client © 2026 · Built with 💜</div>
@@ -1069,26 +1024,22 @@
     </footer>
 
     <script>
-        // Shadow on scroll
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 20);
         });
 
-        // Mobile nav toggle
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobile-nav');
         hamburger.addEventListener('click', function() {
             this.classList.toggle('open');
             mobileNav.classList.toggle('open');
         });
-        // Close mobile nav on link click
         mobileNav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('open');
                 mobileNav.classList.remove('open');
             });
         });
-        // Close on resize to desktop
         window.addEventListener('resize', () => {
             if (window.innerWidth > 820) {
                 hamburger.classList.remove('open');
@@ -1096,7 +1047,6 @@
             }
         });
 
-        // Smooth scroll for all anchor links (excluding external)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
