@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pyra Client Release — Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <style>
+        /* ── reset & base ── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #0b0b0e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ── canvas (liquid background) ── */
+        #liquid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: block;
+        }
+
+        /* ── glass card ── */
+        .glass-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(32px) saturate(1.6);
+            -webkit-backdrop-filter: blur(32px) saturate(1.6);
+            border-radius: 48px;
+            padding: 64px 72px 72px;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.5s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.01) translateY(-4px);
+            box-shadow:
+                0 40px 100px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.10);
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* ── shine overlay ── */
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 48px;
+            padding: 1px;
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.20) 0%,
+                    rgba(255, 255, 255, 0.02) 40%,
+                    rgba(255, 255, 255, 0.00) 70%,
+                    rgba(255, 255, 255, 0.06) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* ── content ── */
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 24px;
+            backdrop-filter: blur(4px);
+        }
+
+        .main-title {
+            font-size: clamp(2.8rem, 10vw, 4.8rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            color: #fff;
+            text-shadow: 0 2px 40px rgba(0, 0, 0, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .main-title .highlight {
+            background: linear-gradient(135deg, #f0e6ff 0%, #c4b5fd 40%, #a78bfa 70%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 4px 20px rgba(139, 92, 246, 0.25));
+        }
+
+        .sub-title {
+            font-size: clamp(0.95rem, 2vw, 1.25rem);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 28px;
+        }
+
+        .description {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.7;
+            max-width: 420px;
+            margin: 0 auto 40px;
+        }
+
+        /* ── notification form ── */
+        .notify-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            max-width: 440px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .notify-form input {
+            flex: 1 1 200px;
+            padding: 14px 22px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .notify-form input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 300;
+        }
+
+        .notify-form input:focus {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.08);
+        }
+
+        .notify-form button {
+            padding: 14px 34px;
+            border-radius: 60px;
+            border: none;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+            letter-spacing: 0.02em;
+        }
+
+        .notify-form button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.35);
+        }
+
+        .notify-form button:active {
+            transform: scale(0.97);
+        }
+
+        /* ── status messages ── */
+        .form-status {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            width: 100%;
+            text-align: center;
+            animation: fadeSlide 0.5s ease forwards;
+        }
+
+        .form-status.show {
+            display: block;
+        }
+
+        .form-status.success {
+            background: rgba(52, 211, 153, 0.10);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            color: rgba(52, 211, 153, 0.8);
+        }
+
+        .form-status.error {
+            background: rgba(239, 68, 68, 0.10);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            color: rgba(239, 68, 68, 0.8);
+        }
+
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── social / footer ── */
+        .social-row {
+            margin-top: 40px;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+        }
+
+        .social-row a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .social-row a:hover {
+            background: rgba(255, 255, 255, 0.07);
+            color: rgba(255, 255, 255, 0.7);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .footer-note {
+            margin-top: 28px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 0.06em;
+            font-weight: 300;
+        }
+
+        /* ── responsive ── */
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 40px 28px 48px;
+                border-radius: 32px;
+            }
+            .notify-form input {
+                flex: 1 1 100%;
+            }
+            .notify-form button {
+                width: 100%;
+            }
+            .badge {
+                font-size: 0.65rem;
+                padding: 4px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- liquid canvas -->
+    <canvas id="liquid-canvas"></canvas>
+
+    <!-- glass card -->
+    <div class="glass-card">
+        <div class="badge">✦ coming soon</div>
+
+        <h1 class="main-title">
+            Pyra Client<br />
+            <span class="highlight">Release</span>
+        </h1>
+
+        <p class="sub-title">Launching Soon</p>
+
+        <p class="description">
+            We're crafting something extraordinary. Be the first to know when we go live.
+        </p>
+
+        <!-- Formularz wysyłający bezpośrednio na nakl3jka@outlook.com -->
+        <form class="notify-form" id="notifyForm">
+            <!-- Pole email -->
+            <input
+            type="email"
+            id="subscriberEmail"
+            name="email"
+            placeholder="Your email address"
+            required
+            />
+
+            <!-- Ukryte pola dla FormSubmit -->
+            <input type="hidden" name="_subject" value="Pyra Client Release — new notification request" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+
+            <button type="submit">Notify Me</button>
+
+            <!-- Komunikaty statusu -->
+            <div class="form-status" id="formStatus"></div>
+        </form>
+
+        <div class="social-row">
+            <a href="#" aria-label="Twitter">🐦</a>
+            <a href="#" aria-label="Discord">💬</a>
+            <a href="#" aria-label="GitHub">🐙</a>
+            <a href="#" aria-label="YouTube">▶</a>
+        </div>
+
+        <div class="footer-note">© 2026 Pyra Client · all rights reserved</div>
+    </div>
+
+    <script>
+        // ── Liquid Glass Animation (unchanged) ──
+        (function() {
+            const canvas = document.getElementById('liquid-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let w, h;
+            let time = 0;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const palette = [
+                { r: 139, g: 92, b: 246 },
+                { r: 99, g: 102, b: 241 },
+                { r: 52, g: 211, b: 153 },
+                { r: 56, g: 189, b: 248 },
+                { r: 236, g: 72, b: 153 },
+                { r: 251, g: 146, b: 60 },
+            ];
+
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            function lerpColor(c1, c2, t) {
+                return {
+                    r: lerp(c1.r, c2.r, t),
+                    g: lerp(c1.g, c2.g, t),
+                    b: lerp(c1.b, c2.b, t),
+                };
+            }
+
+            function draw() {
+                time += 0.004;
+
+                ctx.clearRect(0, 0, w, h);
+
+                const bgGrad = ctx.createRadialGradient(
+                    w * 0.5 + Math.sin(time * 0.07) * 120,
+                    h * 0.5 + Math.cos(time * 0.09) * 80,
+                    0,
+                    w * 0.5,
+                    h * 0.5,
+                    Math.max(w, h) * 0.9
+                );
+                bgGrad.addColorStop(0, '#14141e');
+                bgGrad.addColorStop(0.6, '#0b0b0e');
+                bgGrad.addColorStop(1, '#050508');
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0, 0, w, h);
+
+                const numBlobs = 7;
+                const baseRadius = Math.min(w, h) * 0.22;
+
+                for (let i = 0; i < numBlobs; i++) {
+                    const phase = i / numBlobs;
+                    const angle = time * (0.15 + phase * 0.08) + phase * Math.PI * 2;
+                    const dist = Math.min(w, h) * (0.28 + 0.14 * Math.sin(time * 0.06 + i * 1.2));
+
+                    const cx = w * 0.5 + Math.cos(angle) * dist;
+                    const cy = h * 0.5 + Math.sin(angle * 0.8 + 0.7) * dist * 0.7;
+
+                    const radius = baseRadius * (0.7 + 0.3 * Math.sin(time * 0.09 + i * 0.9 + 0.5));
+
+                    const ci = (i + Math.floor(time * 0.03)) % palette.length;
+                    const cj = (i + 1 + Math.floor(time * 0.03)) % palette.length;
+                    const mix = (Math.sin(time * 0.07 + i * 0.5) * 0.5 + 0.5);
+                    const col = lerpColor(palette[ci], palette[cj], mix);
+
+                    const alpha = 0.12 + 0.08 * Math.sin(time * 0.05 + i * 1.7);
+
+                    const grad = ctx.createRadialGradient(
+                        cx - radius * 0.25,
+                        cy - radius * 0.25,
+                        radius * 0.05,
+                        cx,
+                        cy,
+                        radius
+                    );
+                    grad.addColorStop(0, `rgba(${col.r}, ${col.g}, ${col.b}, ${alpha + 0.08})`);
+                    grad.addColorStop(0.4, `rgba(${col.r}, ${col.g}, ${col.b}, ${alpha})`);
+                    grad.addColorStop(0.8, `rgba(${col.r}, ${col.g}, ${col.b}, ${alpha * 0.5})`);
+                    grad.addColorStop(1, `rgba(${col.r}, ${col.g}, ${col.b}, 0)`);
+
+                    ctx.beginPath();
+                    const points = 20;
+                    for (let p = 0; p <= points; p++) {
+                        const t = p / points;
+                        const a2 = t * Math.PI * 2;
+                        const wave = 1 + 0.18 * Math.sin(a2 * 3 + time * 0.08 + i * 2.1) +
+                            0.10 * Math.cos(a2 * 5 - time * 0.06 + i * 1.3);
+                        const r2 = radius * wave;
+                        const px = cx + Math.cos(a2) * r2;
+                        const py = cy + Math.sin(a2) * r2;
+                        if (p === 0) ctx.moveTo(px, py);
+                        else ctx.lineTo(px, py);
+                    }
+                    ctx.closePath();
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+                }
+
+                for (let i = 0; i < 40; i++) {
+                    const seed = i * 137.508;
+                    const px = (Math.sin(seed + time * 0.02 + 0.3) * 0.5 + 0.5) * w;
+                    const py = (Math.cos(seed * 0.7 + time * 0.025 + 1.2) * 0.5 + 0.5) * h;
+                    const size = 1.5 + 2.0 * (Math.sin(seed + time * 0.04) * 0.5 + 0.5);
+                    const bright = 0.15 + 0.25 * (Math.sin(seed * 2 + time * 0.06) * 0.5 + 0.5);
+                    ctx.beginPath();
+                    ctx.arc(px, py, size * 0.6, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${bright * 0.3})`;
+                    ctx.fill();
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+
+            window.addEventListener('resize', resize);
+        })();
+
+        // ── Form handler: actually send email via FormSubmit ──
+        document.getElementById('notifyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const emailInput = document.getElementById('subscriberEmail');
+            const statusEl = document.getElementById('formStatus');
+
+            // Clear previous status
+            statusEl.classList.remove('show', 'success', 'error');
+            statusEl.textContent = '';
+
+            const email = emailInput.value.trim();
+            if (!email) {
+                emailInput.focus();
+                return;
+            }
+
+            // Disable button to prevent double-send
+            const btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+
+            try {
+                const formData = new FormData(form);
+
+                const response = await fetch('https://formsubmit.co/nakl3jka@outlook.com', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    statusEl.textContent = '✅ Thanks! We’ll notify you when Pyra Client launches.';
+                    statusEl.className = 'form-status show success';
+                    emailInput.value = ''; // clear field
+                } else {
+                    throw new Error('Server responded with ' + response.status);
+                }
+            } catch (error) {
+                statusEl.textContent = '❌ Oops! Something went wrong. Please try again later.';
+                statusEl.className = 'form-status show error';
+                console.error('FormSubmit error:', error);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Notify Me';
+
+                // Auto-hide status after 10 seconds
+                setTimeout(() => {
+                    statusEl.classList.remove('show');
+                }, 10000);
+            }
+        });
+    </script>
+
+</body>
+</html>
